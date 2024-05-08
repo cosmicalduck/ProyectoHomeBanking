@@ -37,8 +37,8 @@ public class ClientController {
         return clientService.findById(id);
     }
 
-//    @RequestMapping("clients/current")
-//    public ClientDTO getCurrentClient(Authentication authentication){
-//
-//    }
+    @RequestMapping("clients/current")
+    public ClientDTO getCurrentClient(){
+        return clientService.findCurrentClient(SecurityContextHolder.getContext().getAuthentication());
+    }
 }

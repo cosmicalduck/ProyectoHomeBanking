@@ -1,6 +1,7 @@
 package com.mindhub.homebanking.services.implementation;
 
 import com.mindhub.homebanking.dtos.ClientDTO;
+import com.mindhub.homebanking.models.Client;
 import com.mindhub.homebanking.repositories.ClientRepository;
 import com.mindhub.homebanking.services.ClientService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -15,9 +16,6 @@ import static java.util.stream.Collectors.toList;
 @Service
 public class ClientServiceImpl implements ClientService {
     private final ClientRepository clientRepository;
-//    @Autowired
-//    Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
-
     private ClientServiceImpl(ClientRepository clientRepository){
         this.clientRepository = clientRepository;
     }
@@ -32,8 +30,8 @@ public class ClientServiceImpl implements ClientService {
         return clientRepository.findById(id).map(ClientDTO::new).orElse(null);
     }
 
-//    @Override
-//    public ClientDTO findCurrentClient() {
-//        return clientRepository.findByEmail(authentication.getName()).map(ClientDTO::new).orElse(null);
-//    }
+    @Override
+    public ClientDTO findCurrentClient(Authentication auth) {
+        return clientRepository.findByEmail(auth.getName()).map(ClientDTO::new).orElse(null);
+    }
 }

@@ -1,6 +1,7 @@
 package com.mindhub.homebanking.services;
 
 import com.mindhub.homebanking.dtos.ClientDTO;
+import org.springframework.security.core.Authentication;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
@@ -11,5 +12,5 @@ public interface ClientService {
 
     ClientDTO findById(long id);
 
-    //ClientDTO findCurrentClient();
+    ClientDTO findCurrentClient(Authentication auth);
 }
