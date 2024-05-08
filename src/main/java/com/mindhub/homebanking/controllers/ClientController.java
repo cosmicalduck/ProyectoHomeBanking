@@ -3,8 +3,6 @@ package com.mindhub.homebanking.controllers;
 import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.mindhub.homebanking.dtos.ClientDTO;
 import com.mindhub.homebanking.services.ClientService;
-import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.security.core.Authentication;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -18,9 +16,6 @@ import java.util.List;
 public class ClientController {
 
     private final ClientService clientService;
-
-//    @Autowired
-//    Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
 
     public ClientController(ClientService clientService) {
         this.clientService = clientService;
