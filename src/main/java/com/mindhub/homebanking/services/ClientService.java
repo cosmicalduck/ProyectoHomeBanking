@@ -10,4 +10,6 @@ public interface ClientService {
     List<ClientDTO> findAll();
 
     ClientDTO findById(long id);
+
+    //ClientDTO findCurrentClient();
 }
