@@ -7,6 +7,7 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RestController;
 
 import java.util.List;
@@ -38,7 +39,7 @@ public class ClientController {
         return clientService.findCurrentClient(SecurityContextHolder.getContext().getAuthentication());
     }
 
-    @RequestMapping("clients/current/accounts")
+    @RequestMapping(value = "clients/current/accounts", method = RequestMethod.POST)
     public ResponseEntity<Object> createAccount(){
         return clientService.createAccount(SecurityContextHolder.getContext().getAuthentication());
     }
