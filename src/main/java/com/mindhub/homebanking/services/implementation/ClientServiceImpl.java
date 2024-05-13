@@ -50,7 +50,9 @@ public class ClientServiceImpl implements ClientService {
        if(auxClient.isPresent()){
            if(auxClient.get().getAccounts().isEmpty() || auxClient.get().getAccounts().size() < 3){
                LocalDate fechaHoy = LocalDate.now();
-               accountRepository.save(new Account(Utils.generateAccountNumber(8), fechaHoy, 0));
+               Account account = accountRepository.save(new Account(Utils.generateAccountNumber(8), fechaHoy, 0));
+               account.setClient(auxClient.get());
+               accountRepository.save(account);
                return new ResponseEntity<>("creada", HttpStatus.CREATED);
            } else {
                return new ResponseEntity<>("prohibido", HttpStatus.FORBIDDEN);
