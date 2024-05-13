@@ -2,6 +2,7 @@ package com.mindhub.homebanking.controllers;
 
 import com.mindhub.homebanking.models.Client;
 import com.mindhub.homebanking.repositories.ClientRepository;
+import com.mindhub.homebanking.services.ClientService;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.crypto.password.PasswordEncoder;
@@ -13,10 +14,16 @@ public class AppController {
 
     private final PasswordEncoder passwordEncoder;
     private final ClientRepository clientRepository;
+    private final ClientService clienteService;
 
-    public AppController(PasswordEncoder passwordEncoder, ClientRepository clientRepository) {
+    public AppController(
+            PasswordEncoder passwordEncoder,
+            ClientRepository clientRepository,
+            ClientService clienteService
+    ) {
         this.passwordEncoder = passwordEncoder;
         this.clientRepository = clientRepository;
+        this.clienteService = clienteService;
     }
 
     @PostMapping(path = "/clients")
@@ -34,7 +41,7 @@ public class AppController {
         }
 
         clientRepository.save(new Client(firstName, lastName, email, passwordEncoder.encode(password)));
-
+        clienteService.autoCreateAccount(email);
         return new ResponseEntity<>(HttpStatus.CREATED);
     }
 }

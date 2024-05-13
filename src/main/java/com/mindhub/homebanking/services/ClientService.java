@@ -16,4 +16,6 @@ public interface ClientService {
     ClientDTO findCurrentClient(Authentication auth);
 
     ResponseEntity<Object> createAccount(Authentication auth);
+
+    ResponseEntity<Object> autoCreateAccount(String email);
 }

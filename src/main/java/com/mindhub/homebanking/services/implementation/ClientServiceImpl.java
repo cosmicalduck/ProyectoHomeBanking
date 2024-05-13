@@ -62,5 +62,23 @@ public class ClientServiceImpl implements ClientService {
        }
     }
 
+    @Override
+    public ResponseEntity<Object> autoCreateAccount(String email) {
+        Optional<Client> auxClient = clientRepository.findByEmail(email);
+        if(auxClient.isPresent()){
+            if(auxClient.get().getAccounts().isEmpty() || auxClient.get().getAccounts().size() < 3){
+                LocalDate fechaHoy = LocalDate.now();
+                Account account = accountRepository.save(new Account(Utils.generateAccountNumber(8), fechaHoy, 0));
+                account.setClient(auxClient.get());
+                accountRepository.save(account);
+                return new ResponseEntity<>("creada", HttpStatus.CREATED);
+            } else {
+                return new ResponseEntity<>("prohibido", HttpStatus.FORBIDDEN);
+            }
+        } else {
+            return new ResponseEntity<>("Client does not exist", HttpStatus.FORBIDDEN);
+        }
+    }
+
 
 }
