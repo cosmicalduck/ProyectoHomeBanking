@@ -3,6 +3,7 @@ package com.mindhub.homebanking.controllers;
 import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.mindhub.homebanking.dtos.ClientDTO;
 import com.mindhub.homebanking.services.ClientService;
+import org.springframework.http.ResponseEntity;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -35,5 +36,10 @@ public class ClientController {
     @RequestMapping("clients/current")
     public ClientDTO getCurrentClient(){
         return clientService.findCurrentClient(SecurityContextHolder.getContext().getAuthentication());
+    }
+
+    @RequestMapping("clients/current/accounts")
+    public ResponseEntity<Object> createAccount(){
+        return clientService.createAccount(SecurityContextHolder.getContext().getAuthentication());
     }
 }
